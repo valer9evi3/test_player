@@ -1,0 +1,18 @@
+.Videoplayer {
+  width: 100%;
+  height: 100%;
+}
+
+.progressBar {
+  height: 8px;
+  border-radius: 4px;
+  background-color: var(--secondary);
+}
+
+.progressIcon {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background-color: var(--secondary-inverted);
+  z-index: 10;
+}

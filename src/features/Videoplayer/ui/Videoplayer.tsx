@@ -58,7 +58,7 @@ export const Videoplayer = memo((props: VideoplayerProps) => {
     }, [eventList]);
 
     return (
-        <>
+        <div className={cls.Videoplayer}>
             {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <video
                 ref={videoRef}
@@ -67,9 +67,7 @@ export const Videoplayer = memo((props: VideoplayerProps) => {
                 style={{
                     ...size,
                 }}
-            >
-                <track />
-            </video>
+            />
             <div>
                 <canvas
                     onClick={() => (videoRef.current.paused ? videoRef.current.play() : videoRef.current.pause())}
@@ -80,7 +78,10 @@ export const Videoplayer = memo((props: VideoplayerProps) => {
                     }}
                 />
             </div>
-        </>
+            <div className={cls.progressBar}>
+                <div className={cls.progressIcon} />
+            </div>
+        </div>
 
     );
 });
