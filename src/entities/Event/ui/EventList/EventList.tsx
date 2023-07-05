@@ -9,18 +9,14 @@ import {
 } from 'entities/Event/models/selectors/event';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { eventActions } from 'entities/Event/models/slice/eventSlice';
+import format from 'date-fns/format';
 import cls from './EventList.module.scss';
 
-interface EventListProps {
-
-}
-
-export const EventList = memo((props: EventListProps) => {
+export const EventList = memo(() => {
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getEventIsLoading);
     const error = useSelector(getEventError);
     const eventList = useSelector(getEventList);
-    const selectedId = useSelector(getEventSelectedId);
 
     useEffect(() => {
         dispatch(fetchEventList());
@@ -30,14 +26,20 @@ export const EventList = memo((props: EventListProps) => {
         dispatch(eventActions.setSelectedEventId(id));
     }, [dispatch]);
 
+    const displayValue = (timeStamp: number) => {
+        const ms = 1609459200000 + timeStamp;
+        const date = new Date(ms);
+        return format(date, 'mm:ss:SSS');
+    };
+
     return (
         <div className={cls.EventList}>
             {isLoading
                 ? null
                 : eventList.map((e) => (
                     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div style={{ border: selectedId === e.id ? '1px solid red' : null }} key={e.id} onClick={() => handleClick(e.id)}>
-                        {e.timestamp}
+                    <div key={e.id} onClick={() => handleClick(e.id)} className={cls.eventItem}>
+                        {displayValue(e.timestamp)}
                     </div>
                 ))}
         </div>

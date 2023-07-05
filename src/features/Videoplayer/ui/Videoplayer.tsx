@@ -3,7 +3,6 @@ import {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { getEventById, getEventList } from 'entities/Event/models/selectors/event';
-import cls from './Videoplayer.module.scss';
 
 interface VideoplayerProps {
     source?: string;
@@ -58,7 +57,7 @@ export const Videoplayer = memo((props: VideoplayerProps) => {
     }, [eventList]);
 
     return (
-        <div className={cls.Videoplayer}>
+        <>
             {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <video
                 ref={videoRef}
@@ -66,6 +65,10 @@ export const Videoplayer = memo((props: VideoplayerProps) => {
                 src={source ?? ''}
                 style={{
                     ...size,
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
                 }}
             />
             <div>
@@ -74,14 +77,14 @@ export const Videoplayer = memo((props: VideoplayerProps) => {
                     ref={canvasRef}
                     {...size}
                     style={{
-                        position: 'absolute', zIndex: 10, top: 0,
+                        position: 'absolute',
+                        zIndex: 10,
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
                     }}
                 />
             </div>
-            <div className={cls.progressBar}>
-                <div className={cls.progressIcon} />
-            </div>
-        </div>
-
+        </>
     );
 });
