@@ -1,29 +1,26 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { fetchEventList } from 'entities/Event/models/services/fetchEventList';
 import {
-    getEventError,
     getEventIsLoading,
     getEventList,
-    getEventSelectedId,
 } from 'entities/Event/models/selectors/event';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { eventActions } from 'entities/Event/models/slice/eventSlice';
 import format from 'date-fns/format';
 import cls from './EventList.module.scss';
 
-export const EventList = memo(() => {
+interface EventListProps {
+    handleClick: (currentTime: number) => void
+}
+
+export const EventList = memo((props: EventListProps) => {
+    const { handleClick } = props;
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getEventIsLoading);
-    const error = useSelector(getEventError);
     const eventList = useSelector(getEventList);
 
     useEffect(() => {
         dispatch(fetchEventList());
-    }, [dispatch]);
-
-    const handleClick = useCallback((id: number) => {
-        dispatch(eventActions.setSelectedEventId(id));
     }, [dispatch]);
 
     const displayValue = (timeStamp: number) => {
@@ -38,7 +35,7 @@ export const EventList = memo(() => {
                 ? null
                 : eventList.map((e) => (
                     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-                    <div key={e.id} onClick={() => handleClick(e.id)} className={cls.eventItem}>
+                    <div key={e.id} onClick={() => handleClick(e.timestamp / 1000)} className={cls.eventItem}>
                         {displayValue(e.timestamp)}
                     </div>
                 ))}

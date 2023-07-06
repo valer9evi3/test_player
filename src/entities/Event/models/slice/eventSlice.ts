@@ -4,7 +4,6 @@ import { fetchEventList } from '../services/fetchEventList';
 import { EventList, EventSchema } from '../types/eventSchema';
 
 const initialState: EventSchema = {
-    selectedEventId: null,
     eventList: [],
     isLoading: false,
 };
@@ -13,13 +12,6 @@ export const eventSlice = createSlice({
     name: 'event',
     initialState,
     reducers: {
-        setSelectedEventId: (state, { payload }: PayloadAction<number>) => {
-            if (state.selectedEventId !== payload) {
-                state.selectedEventId = payload;
-            } else {
-                state.selectedEventId = null;
-            }
-        },
         setEventList: (state, { payload }: PayloadAction<EventList[]>) => {
             state.eventList = payload.sort((a, b) => a.timestamp - b.timestamp);
         },

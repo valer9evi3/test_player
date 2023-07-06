@@ -12,7 +12,7 @@ export interface EventList {
 }
 
 export interface EventSchema {
-    selectedEventId: number | null;
+
     eventList: EventList [];
     isLoading: boolean;
     error?: string;
