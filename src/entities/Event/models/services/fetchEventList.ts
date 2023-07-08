@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { eventActions } from 'entities/Event/models/slice/eventSlice';
 import axios from 'axios';
+import { eventActions } from '../slice/eventSlice';
 import { EventList } from '../types/eventSchema';
 import { eventsURL } from '../consts/eventsConst';
 
@@ -13,7 +13,7 @@ export const fetchEventList = createAsyncThunk<
         const response = await axios.get<EventList[]>(
             eventsURL,
         );
-        if (!response.data) {
+        if (!response?.data) {
             throw new Error();
         }
         thunkApi.dispatch(eventActions.setEventList(response.data));

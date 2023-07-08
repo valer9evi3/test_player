@@ -4,7 +4,7 @@ import { fetchEventList } from 'entities/Event/models/services/fetchEventList';
 import {
     getEventIsLoading,
     getEventList,
-} from 'entities/Event/models/selectors/event';
+} from 'entities/Event/models/selectors/eventSelectors';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import format from 'date-fns/format';
 import cls from './EventList.module.scss';
