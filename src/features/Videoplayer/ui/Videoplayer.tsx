@@ -2,7 +2,7 @@ import React, {
     memo, useCallback, useEffect, useRef,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { getEventList } from 'entities/Event/models/selectors/event';
+import { getEventList } from 'entities/Event/models/selectors/eventSelectors';
 import {
     getCurrentTime,
     getProgressValue,
@@ -83,6 +83,7 @@ export const Videoplayer = memo((props: VideoplayerProps) => {
         <>
             {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <video
+                data-testid="Videoplayer"
                 ref={videoRef}
                 onTimeUpdate={timeUpdateHandler}
                 src={source ?? ''}
